@@ -1,9 +1,12 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { withClerkMiddleware } from "@clerk/nextjs/server";
 
-export default authMiddleware({
-  // Set the paths that don't require the user to be signed in
-  // Sign in and sign up pages are already made public by Clerk
-  publicRoutes: ["/"],
-});
+export default withClerkMiddleware();
 
-export const config = { matcher: "/((?!_next/image|_next/static|favicon.ico|.*.svg).*)" };
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+};
