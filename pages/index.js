@@ -58,73 +58,13 @@ export default function handler(req, res) {
 };
 `.trim();
 
-// Main component using <SignedIn> and <SignedOut>.
-//
-// The SignedIn and SignedOut components are used to control rendering
-// depending on whether or not a visitor is signed in.
-//
-// https://clerk.dev/docs/component-reference/signed-in
 const Main = () => (
-  <main className={styles.main}>
-    <h1 className={styles.title}>Welcome to your new app</h1>
-    <SignedIn>
-      <p className={styles.description}>You have successfully signed in</p>
-    </SignedIn>
-    <SignedOut>
-      <p className={styles.description}>Sign up for an account to get started</p>
-    </SignedOut>
-
-    <div className={styles.cards}>
-      <SignedIn>
-        <div className={styles.card}>
-          <SSRDemoLink />
-        </div>
-        <div className={styles.card}>
-          <ClerkFeatures />
-        </div>
-      </SignedIn>
-      <SignedOut>
-        <div className={styles.card}>
-          <SignupLink />
-        </div>
-      </SignedOut>
-
-      <div className={styles.card}>
-        <Link
-          href="https://dashboard.clerk.dev/last-active?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter"
-          target="_blank"
-          rel="noopener"
-          className={styles.cardContent}
-        >
-          <img src="/icons/settings.svg" />
-          <div>
-            <h3>Configure settings for your app</h3>
-            <p>Visit Clerk to manage instances and configure settings for user management, theme, and more</p>
-          </div>
-          <div className={styles.arrow}>
-            <img src="/icons/arrow-right.svg" />
-          </div>
-        </Link>
-      </div>
-    </div>
+  <main className={styles.main} style={{backgroundColor:"lightcoral"}}>
 
     <SignedIn>
       <APIRequest />
     </SignedIn>
 
-    <div className={styles.links}>
-      <Link
-        href="https://clerk.dev/docs?utm_source=github&utm_medium=starter_repos&utm_campaign=nextjs_starter"
-        target="_blank"
-        rel="noopener"
-        className={styles.link}
-      >
-        <span className={styles.linkText}>Read Clerk documentation</span>
-      </Link>
-      <Link href="https://nextjs.org/docs" target="_blank" rel="noopener" className={styles.link}>
-        <span className={styles.linkText}>Read NextJS documentation</span>
-      </Link>
-    </div>
   </main>
 );
 
@@ -148,33 +88,12 @@ const APIRequest = () => {
   };
   return (
     <div className={styles.backend}>
-      <h2>API request example</h2>
       <div className={styles.card}>
-        <button target="_blank" rel="noopener" className={styles.cardContent} onClick={() => makeRequest()}>
-          <img src="/icons/server.svg" />
-          <div>
-            <h3>fetch('/api/getAuthenticatedUserId')</h3>
-            <p>Retrieve the user ID of the signed in user, or null if there is no user</p>
-          </div>
-          <div className={styles.arrow}>
-            <img src="/icons/download.svg" />
-          </div>
+        <button target="_blank" rel="noopener"  onClick={() => makeRequest()} style={{minWidth:'500px'}}>
+          <h1>You have successfully signed in</h1>
         </button>
       </div>
-      <h4>
-        Response
-        <em>
-          <SignedIn>You are signed in, so the request will return your user ID</SignedIn>
-          <SignedOut>You are signed out, so the request will return null</SignedOut>
-        </em>
-      </h4>
-      <pre>
-        <code className="language-js">{response}</code>
-      </pre>
-      <h4>pages/api/getAuthenticatedUserId.js</h4>
-      <pre>
-        <code className="language-js">{apiSample}</code>
-      </pre>
+
     </div>
   );
 };
